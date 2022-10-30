@@ -4,7 +4,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import api from "servises/service-pixabay";
 
 import { Container } from "./App.styled";
-import { SearchBar } from "components/SearchBar/SearchBar";
+import { SearchBar } from "components/Searchbar/Searchbar";
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Loader } from 'components/Loader/Loader';
