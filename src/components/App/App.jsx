@@ -54,6 +54,12 @@ export class App extends Component {
     return null;
   }
 
+  toggleShowModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal
+    }));
+  };
+
   onFormSubmit = searchNameImages => {
     if (searchNameImages !== this.state.searchQuery) {
       this.setState({
@@ -74,15 +80,14 @@ export class App extends Component {
     const modalImage = this.state.images.find(image => image.id === id);
     this.setState({
       modalImageURL: modalImage.largeImageURL,
-      tags: modalImage.tags,
-      showModal: true
-    });    
+      tags: modalImage.tags      
+    });
+    this.toggleShowModal();
   }
 
-  onOverlayClick = (event) => {
-    const overlay = document.getElementById('Overlay');
-    if (event.target === overlay) {
-      this.setState({ showModal: false });
+  onOverlayClick = (event) => {    
+    if (event.target === event.currentTarget) {      
+      this.toggleShowModal();
     }
   }
 
@@ -99,7 +104,7 @@ export class App extends Component {
       <Container>
         <SearchBar onSubmit={this.onFormSubmit} />
         {isLoadingImage && <Loader />}
-        {showModal && <Modal onClick={this.onOverlayClick} largeImageUrl={modalImageURL} tags={tags} />}
+        {showModal && <Modal onClick={this.onOverlayClick} onClose={this.toggleShowModal} largeImageUrl={modalImageURL} tags={tags} />}
         {images.length > 0 && <ImageGallery images={images} onClick={this.onItemClick} />}
         {images.length >= 12  && (
           <>
